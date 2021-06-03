@@ -5,12 +5,22 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": 
+    "start": "node index.js"
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kwerrell73/employee-tracker2.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kwerrell73/employee-tracker2/issues"
+  },
+  "homepage": "https://github.com/Kwerrell73/employee-tracker2#readme",
   "dependencies": {
+    "console.table": "^0.10.0",
     "inquirer": "^8.1.0",
     "mysql2": "^2.2.5"
   }
