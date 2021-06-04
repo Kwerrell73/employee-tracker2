@@ -1,0 +1,28 @@
+DROP TABLE IF EXISTS employee;
+DROP TABLE IF EXISTS department;
+DROP TABLE IF EXISTS roles;
+
+USE employeeList;
+
+CREATE TABLE employee (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
+    role_id INTEGER,
+    manager_id INTEGER NULL
+);
+
+CREATE TABLE department (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY  NOT NULL,
+    name VARCHAR(30) NULL
+);
+
+CREATE TABLE roles (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    title VARCHAR (30) NULL,
+    salary DECIMAL (10,3) NULL,
+    department_id INTEGER NULL
+
+);
+
+

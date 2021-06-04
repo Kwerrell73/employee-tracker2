@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const mysql = require('mysql2');
+const db = require('./db/connection');
 
 
 
@@ -16,21 +17,6 @@ const promptList = {
 
     exit: "Exit"
 };
-
-//mysql connection
-
-const connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3301,
-    user: 'root',
-    password: '1967Morgan!',
-    database: 'employees'
-});
-
-connection.connect(err => {
-    if (err) throw err;
-    prompt();
-});
 
 
 // Prompt the user to select from list
@@ -84,7 +70,7 @@ function prompt() {
                     break;
 
                 case promptList.updateRole:
-                    remove('role');
+                    updateRole();
                     break;
 
                
@@ -96,17 +82,41 @@ function prompt() {
 }
 
 //add function for viewAllRoles
-function viewAllRoles() {}
+function viewAllRoles() {
+
+
+
+
+
+
+}
 
 //add function for viewAllEmployees
 function viewAllDepartments() {}
 
 //add function for viewAllEmployees
-function viewAllEmployees() {}
+function viewAllEmployees() { 
+    const query = `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+    FROM employee
+    LEFT JOIN employee manager on manager.id = employee.manager_id
+    INNER JOIN roles ON (roles.id = employee.roles_id)
+    INNER JOIN department ON (department.id = roles.department_id)
+    ORDER BY employee.id;`;
+    connection.query(query, (err, res) => {
+        if (err) throw err;
+        console.table(res);        
+        console.log('\n');
+        console.log('VIEW ALL EMPLOYEES\n');
+
+        prompt();
+    });
+}
+
 
 //addEmployee function
-async function addEmployee() {}
+async function addEmployee() {
 const name = await inquirer.prompt(empName());
+}
 //addDepartment
 async function addDepartment() {}
 //addRole
@@ -123,12 +133,12 @@ function empName() {
         {
             name: "first",
             type: "input",
-            message: "Enter the first name: "
+            message: "Please enter the employees first name: "
         },
         {
             name: "last",
             type: "input",
-            message: "Enter the last name: "
+            message: "Please enter the employees last name: "
         }
     ]);
 }
