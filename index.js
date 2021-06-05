@@ -163,7 +163,7 @@ function addEmployee() {
         ])
         .then(function (res) {
             const query = db.query(
-                "INSERT INTO employees SET ?",
+                "INSERT INTO employee SET ?",
                 res,
                 function (err, res) {
                     if (err) throw err;
@@ -176,7 +176,34 @@ function addEmployee() {
 }
 
 //addDepartment
-function addDepartment() { }
+function addDepartment() {
+    
+    console.log("Add a new department.\n");
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "Please provide the Department name.",
+                name: "department_name",
+            }
+           
+        ])
+        .then(function (res) {
+            const query = db.query(
+                "INSERT INTO department SET ?", 
+                {
+                  name: res.department_name
+                }, 
+                function(err, res){
+                  db.query("SELECT * FROM department", function(err, res){
+                    console.table(res); 
+                    prompt(); 
+                  })
+                }
+            );
+        })
+}
+ 
 
 
 //addRole
@@ -228,8 +255,7 @@ function addRole() {
 }
 
 
-//addEmployee
-function addEmployee() { }
+
 
 //Update Role - 
 function updateRole() {
