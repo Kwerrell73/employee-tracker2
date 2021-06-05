@@ -13,4 +13,4 @@ console.log('Connected to the employeeList database.')
 
 
 
-module.exports = db;
+module.exports = connection;
