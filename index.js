@@ -71,7 +71,7 @@ function prompt() {
                     addEmployee();
                     break;
 
-                case promptList.addEmployee:
+                case promptList.deleteEmployee:
                     deleteEmployee();
                     break;
 
@@ -174,6 +174,36 @@ function addEmployee() {
             );
         })
 }
+
+function deleteEmployee(){
+    let employees = [];
+ db.query(
+      "SELECT employee.first_name, employee.last_name FROM employee", (err,res) => {
+        for (let i = 0; i < res.length; i++){
+          employees.push(res[i].first_name + " " + res[i].last_name);
+        }
+    inquirer 
+    .prompt ([ 
+      {
+        type: "list", 
+        message: "Please select the employee you would like to delete.",
+        name: "employee",
+        choices: employees
+  
+      },
+    ])
+    .then (function(res){
+      const query = db.query(
+        `DELETE FROM employee WHERE concat(first_name, ' ' ,last_name) = '${res.employee}'`,
+          function(err, res) {
+          if (err) throw err;
+          console.log( "Employee deleted!\n");
+       prompt();
+      });
+      });
+      }
+        );
+        };
 
 //addDepartment
 function addDepartment() {
