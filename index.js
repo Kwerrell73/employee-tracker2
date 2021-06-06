@@ -253,28 +253,28 @@ function addRole() {
                     {
                         type: "input",
                         name: "title",
-                        message: "Please type the role you would like to add?"
+                        message: "Please type the role you would like to add."
                     },
                     {
                         type: "input",
                         name: "salary",
-                        message: "Please provide the salary for this role?"
+                        message: "Please provide the salary for this role."
                     },
                     {
                         type: "list",
                         name: "department",
-                        message: "Please provide the department?",
+                        message: "Please provide the department.",
                         choices: department
                     }
                 ])
                 .then(function (res) {
                     console.log(res);
                     const query = db.query(
-                        "Add to role SET ?",
+                        "INSERT INTO role SET ?",
                         {
                             title: res.title,
-                            salary: res.salary,
-                            department: res.department_id
+                            salary: parseInt(res.salary),
+                            department_id: res.department
                         },
                         function (err, res) {
                             if (err) throw err;
