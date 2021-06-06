@@ -89,10 +89,10 @@ function prompt() {
 
 //add function for viewAllRoles
 function viewAllRoles() {
-  db.query("SELECT Role.*, Department.name FROM role LEFT JOIN department ON department.id = role.department_id", function (err, res) {
+    db.query("SELECT Role.*, Department.name FROM role LEFT JOIN department ON department.id = role.department_id", function (err, res) {
         if (err) throw err;
         console.table(res);
-       prompt();
+        prompt();
     }
     )
 }
@@ -152,8 +152,8 @@ function addEmployee() {
             {
                 type: "list",
                 message: "Please type the employee's role?",
-                name: "roles_id",
-                choices: [1, 2, 3]
+                name: "role_id",
+                choices: [1, 2, 3, 4, 5, 6, 7]
             },
             {
                 type: "input",
@@ -177,7 +177,7 @@ function addEmployee() {
 
 //addDepartment
 function addDepartment() {
-    
+
     console.log("Add a new department.\n");
     inquirer
         .prompt([
@@ -186,24 +186,24 @@ function addDepartment() {
                 message: "Please provide the Department name.",
                 name: "department_name",
             }
-           
+
         ])
         .then(function (res) {
             const query = db.query(
-                "INSERT INTO department SET ?", 
+                "INSERT INTO department SET ?",
                 {
-                  name: res.department_name
-                }, 
-                function(err, res){
-                  db.query("SELECT * FROM department", function(err, res){
-                    console.table(res); 
-                    prompt(); 
-                  })
+                    name: res.department_name
+                },
+                function (err, res) {
+                    db.query("SELECT * FROM department", function (err, res) {
+                        console.table(res);
+                        prompt();
+                    })
                 }
             );
         })
 }
- 
+
 
 
 //addRole
@@ -238,15 +238,15 @@ function addRole() {
                 .then(function (res) {
                     console.log(res);
                     const query = db.query(
-                        "Add to roles SET ?",
+                        "Add to role SET ?",
                         {
                             title: res.title,
                             salary: res.salary,
-                            department_id: res.department
+                            department_id: res.department_id
                         },
                         function (err, res) {
                             if (err) throw err;
-                            //const id = res.insertId;
+                            
                             prompt();
                         }
                     )
@@ -259,8 +259,39 @@ function addRole() {
 
 //Update Role - 
 function updateRole() {
+    db.query("SELECT first_name, last_name, id FROM employee",
+        function (err, res) {
+         
+            let employees = res.map(employee => ({ name: employee.first_name + " " + employee.last_name, value: employee.id }))
 
+            inquirer
+                .prompt([
+                    {
+                        type: "list",
+                        name: "employeeName",
+                        message: "Please select the employee's role you would like to update.",
+                        choices: employees
+                    },
+                    {
+                        type: "input",
+                        name: "role",
+                        message: "Please provide this employees new role."
+                    }
+                ])
+                .then(function (res) {
+                  db.query(`UPDATE employee SET role_id = ${res.role} WHERE id = ${res.employeeName}`,
+                        function (err, res) {
+                            console.log(res);
+                           
+                            prompt()
+                        }
+                    );
+                })
+        }
+    )
 }
+
+
 
 
 
