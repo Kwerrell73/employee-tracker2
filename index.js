@@ -62,11 +62,6 @@ function prompt() {
                     break;
 
 
-                case promptList.addRole:
-                    addRole();
-                    break;
-
-
                 case promptList.addEmployee:
                     addEmployee();
                     break;
@@ -75,13 +70,19 @@ function prompt() {
                     deleteEmployee();
                     break;
 
+
+                case promptList.addRole:
+                    addRole();
+                    break;
+
+
                 case promptList.updateRole:
                     updateRole();
                     break;
 
-
+                //to exit
                 case promptList.exit:
-                    connection.end();
+                    db.end();
                     break;
             }
         });
@@ -175,37 +176,38 @@ function addEmployee() {
         })
 }
 
-function deleteEmployee(){
+//deleteEmployee function
+function deleteEmployee() {
     let employees = [];
- db.query(
-      "SELECT employee.first_name, employee.last_name FROM employee", (err,res) => {
-        for (let i = 0; i < res.length; i++){
-          employees.push(res[i].first_name + " " + res[i].last_name);
-        }
-    inquirer 
-    .prompt ([ 
-      {
-        type: "list", 
-        message: "Please select the employee you would like to delete.",
-        name: "employee",
-        choices: employees
-  
-      },
-    ])
-    .then (function(res){
-      const query = db.query(
-        `DELETE FROM employee WHERE concat(first_name, ' ' ,last_name) = '${res.employee}'`,
-          function(err, res) {
-          if (err) throw err;
-          console.log( "Employee deleted!\n");
-       prompt();
-      });
-      });
-      }
-        );
-        };
+    db.query(
+        "SELECT employee.first_name, employee.last_name FROM employee", (err, res) => {
+            for (let i = 0; i < res.length; i++) {
+                employees.push(res[i].first_name + " " + res[i].last_name);
+            }
+            inquirer
+                .prompt([
+                    {
+                        type: "list",
+                        message: "Please select the employee you would like to delete.",
+                        name: "employee",
+                        choices: employees
 
-//addDepartment
+                    },
+                ])
+                .then(function (res) {
+                    const query = db.query(
+                        `DELETE FROM employee WHERE concat(first_name, ' ' ,last_name) = '${res.employee}'`,
+                        function (err, res) {
+                            if (err) throw err;
+                            console.log("Employee deleted!\n");
+                            prompt();
+                        });
+                });
+        }
+    );
+};
+
+//addDepartment function
 function addDepartment() {
 
     console.log("Add a new department.\n");
@@ -236,7 +238,7 @@ function addDepartment() {
 
 
 
-//addRole
+//addRole function
 function addRole() {
     let department = [];
     db.query("SELECT * FROM department",
@@ -272,11 +274,11 @@ function addRole() {
                         {
                             title: res.title,
                             salary: res.salary,
-                            department_id: res.department_id
+                            department: res.department_id
                         },
                         function (err, res) {
                             if (err) throw err;
-                            
+
                             prompt();
                         }
                     )
@@ -287,11 +289,11 @@ function addRole() {
 
 
 
-//Update Role - 
+//updateRole function
 function updateRole() {
     db.query("SELECT first_name, last_name, id FROM employee",
         function (err, res) {
-         
+
             let employees = res.map(employee => ({ name: employee.first_name + " " + employee.last_name, value: employee.id }))
 
             inquirer
@@ -309,10 +311,10 @@ function updateRole() {
                     }
                 ])
                 .then(function (res) {
-                  db.query(`UPDATE employee SET role_id = ${res.role} WHERE id = ${res.employeeName}`,
+                    db.query(`UPDATE employee SET role_id = ${res.role} WHERE id = ${res.employeeName}`,
                         function (err, res) {
                             console.log(res);
-                           
+
                             prompt()
                         }
                     );
