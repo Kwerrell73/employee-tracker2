@@ -1,7 +1,7 @@
 ## Team Profile Generator 
 
 ## Purpose
-A Node/MySQL CLI application that is used to create and maintain a employee database.  Tables include:  employees, roles, and departments.
+A CLI application that is used to create and maintain a employee database.  Tables include:  employees, roles, and departments.
 
 ## Built With
 * JavaScript
@@ -14,8 +14,10 @@ A Node/MySQL CLI application that is used to create and maintain a employee data
 https://drive.google.com/file/d/113sMWFsf-5z8rvxF99pjspYPMc1F5igG/view
 
 ## Screenshots of tests
-![](./assets/images/screenshots/testscreenshotsone.png)
-![](./assets/images/screenshots/testscreenshotstwo.png)
+![](./assets/images/screenshots/emptracker_start.png)
+![](./assets/images/screenshots/emptracker_roles.png)
+![](./assets/images/screenshots/emptracker_depts.png)
+![](./assets/images/screenshots/emptracker_employees.png)
 
 
 ## Contribution
