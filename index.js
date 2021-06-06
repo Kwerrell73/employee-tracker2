@@ -2,9 +2,11 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const mysql = require('mysql2');
 const db = require('./db/connection');
+require("console.table");
 
-
-
+console.log(`WELCOME to EMPLOYEE MANAGER`);
+console.log(`Please make your selection from the list below`);
+console.log('\n');
 
 const promptList = {
     viewAllDepartments: "View All Departments",

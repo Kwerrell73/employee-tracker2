@@ -8,7 +8,7 @@ const connection = mysql.createConnection({
     password: '1967Morgan!',
     database: 'employeeList'
 },
-console.log('Connected to the employeeList database.')
+console.log('Connected to the employeeList database. \n')
 );
 
 
