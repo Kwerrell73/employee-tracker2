@@ -1,4 +1,4 @@
-## Team Profile Generator 
+## Employee Tracker 
 
 ## Purpose
 A CLI application that is used to create and maintain a employee database.  Tables include:  employees, roles, and departments.
