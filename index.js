@@ -4,7 +4,7 @@ const mysql = require('mysql2');
 const db = require('./db/connection');
 require("console.table");
 
-console.log(`WELCOME to EMPLOYEE MANAGER`);
+console.log(`WELCOME to EMPLOYEE TRACKER`);
 console.log(`Please make your selection from the list below`);
 console.log('\n');
 
@@ -19,7 +19,9 @@ const promptList = {
     updateRole: "Update Employee Role",
 
     exit: "Exit"
+
 };
+
 
 
 // Prompt the user to select from list
@@ -102,15 +104,11 @@ function viewAllRoles() {
 
 //add function for viewAllDepartments
 function viewAllDepartments() {
-    const query = `SELECT department.name AS department, role.title, employee.id, employee.first_name, employee.last_name
-    FROM employee
-    LEFT JOIN role ON (role.id = employee.role_id)
-    LEFT JOIN department ON (department.id = role.department_id)
-    ORDER BY department.name;`;
+    const query =  `SELECT department.id AS id, department.name AS department FROM department`; 
     db.query(query, (err, res) => {
         if (err) throw err;
         console.table(res);
-        console.log('VIEW EMPLOYEE BY DEPARTMENT\n');
+        console.log('DEPARTMENT LIST\n');
 
         prompt();
     });

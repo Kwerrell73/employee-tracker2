@@ -11,7 +11,7 @@ A CLI application that is used to create and maintain a employee database.  Tabl
 * console.table
 
 ## Link to walk thru video of application
-https://drive.google.com/file/d/113sMWFsf-5z8rvxF99pjspYPMc1F5igG/view
+https://drive.google.com/file/d/1dXkATVYjoD1AKtiDl7Wqa2etJrwvnq7G/view
 
 ## Screenshots of tests
 ![](./assets/images/screenshots/emptracker_start.png)
